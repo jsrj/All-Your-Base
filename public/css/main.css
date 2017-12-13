@@ -21,7 +21,7 @@ body {
   margin: 0 auto;
   width: 98vw;
   height: 34vh;
-  display: flex;
+  display: none;
   flex-direction: row;
   padding: 1rem;
   clear: both;
@@ -106,9 +106,9 @@ body {
 /* Mobile Specific Styles */
 /* ----------- iPhone 4 and 4S ----------- */
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
   .mobile-controls {
-    display: block;
+    display: flex;
   }
 }
 

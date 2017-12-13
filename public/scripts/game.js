@@ -16,6 +16,14 @@ const resizer = () => {
     });
 }
 
+const viewportCheck = () => {
+  if($(document).width() <=800){
+    $('#mobile-controls').css('display', 'flex');
+  } else {
+    $('#mobile-controls').css('display', 'none');
+  }
+};
+
 // Keybindings for mobile controls, in the event that they are displayed.
 const screenControls = $('#mobile-controls');
 
@@ -188,6 +196,7 @@ var mainState = {
     update: function() {
         // This function is called 60 times per second
         resizer();
+        viewportCheck();
         // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // this.game.scale.setShowAll();
         // window.addEventListener(

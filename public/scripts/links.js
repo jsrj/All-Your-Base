@@ -6,7 +6,7 @@ $(document).ready(function() {
 
       $('#play-switch').addClass('active');
       $('#about-switch').removeClass('active');
-      $('#mobile-controls').css('display', 'flex');
+      //$('#mobile-controls').css('display', 'flex');
 
       $('#how-to-play').css('display', 'none');
       $('.ui.menu').css('display', 'none');
