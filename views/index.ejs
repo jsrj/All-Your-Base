@@ -1,2 +1,29 @@
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
+<div class="ui menu" id="base-menu">
+    <a  class="item"
+        id="title-doo"
+        href="https://jsrj.github.io/All-Your-Base">| All Your Base | </a>
+
+    <div class="right menu">
+        <a class="active item" id="play-switch">  Play  </a>
+        <a class="item"        id="about-switch"> About </a>
+    </div>
+</div>
+
+<div id="view-area">
+<!-- This is the layer targetted by phaser. -->
+    <div id="phaser-target" class="layer-control"></div>
+    <div id="mobile-controls">
+        <div id="direction-arrows">
+            <img src="/assets/control_interface/arrow_up.png" class="arrow" id="up">
+            <img src="/assets/control_interface/arrow_dn.png" class="arrow" id="dn">
+        </div>
+        <div id="energy-shift" class="layer-control">
+            <img src="/assets/control_interface/energy_red.png"  class="energy" id="red">
+            <img src="/assets/control_interface/energy_blue.png" class="energy" id="blue">
+        </div>
+    </div>
+    <!-- This is the layer which dispalys the rules and controls. -->
+    <div id="how-to-play"   class="layer-control">
+        <img src="/assets/info-screen.png">
+    </div>
+</div>
