@@ -2,6 +2,11 @@ body {
   background-color: #282828;
 }
 
+#base-menu {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
 .layer-control {
   position: fixed;
   left: 0;
@@ -11,6 +16,10 @@ body {
 #view-area {
   width: 100vw;
   height: 100%;
+}
+
+element.style {
+  display: flex;
 }
 
 #mobile-controls {
@@ -25,50 +34,33 @@ body {
   flex-direction: row;
   padding: 1rem;
   clear: both;
-  box-shadow: rgba(255, 85, 0, 1) 0px 0px 0px 8px;
+  box-shadow: #ff5500 0px 0px 0px 8px;
 }
 
-#direction-arrows {
+#mobile-controls #direction-arrows {
   display: flex;
   flex-direction: column;
 }
 
-.arrow {
-  flex-direction: column;
-  width: 85px;
-  height: 80px;
-  box-shadow: rgba(75, 255, 0, 1) 0px 0px 0px 4px;
+#mobile-controls #direction-arrows .arrow {
+  height: 25%;
+  width: 8%;
 }
 
-#direction-arrows .arrow #up {
-  display: flex;
+#mobile-controls #direction-arrows .arrow #up {
+  display: block;
+  margin-bottom: 5%;
 }
 
-#direction-arrows .arrow #down {
-  display: flex;
-}
-
-#energy-shift {
-  margin: auto;
-  margin-right: 5px;
-  position: static;
-  right: 0px;
-  display: flex;
-  flex-direction: row;
-}
-
-.energy {
-  width: 8vw;
-  height: 12vh;
-  box-shadow: rgba(125, 110, 255, 1) 0px 0px 0px 8px;
-  margin: 15px;
-}
-
-#energy-shift .energy #red {
+#mobile-controls #direction-arrows .arrow #down {
   display: block;
 }
 
-#energy-shift .energy #blue {
+#mobile-controls #energy-shift .energy #red {
+  display: block;
+}
+
+#mobile-controls #energy-shift .energy #blue {
   display: block;
 }
 
@@ -106,12 +98,6 @@ body {
 /* Mobile Specific Styles */
 /* ----------- iPhone 4 and 4S ----------- */
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-  .mobile-controls {
-    display: flex;
-  }
-}
-
 /* Portrait */
 /* Landscape */
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */

@@ -9,10 +9,8 @@ const resizer = () => {
       '#how-to-play'
     ];
     resizerTargetList.forEach((target) => {
-      $(target).css('width', mwVal);
+      $(target).css('width',  mwVal);
       $(target).css('height', mhVal);
-
-      //game.ScaleManager.RESIZE();
     });
 }
 
@@ -31,19 +29,6 @@ const upArrow    = $('#up');
 const dnArrow    = $('#dn');
 const redEnergy  = $('#red');
 const bluEnergy  = $('#blue');
-
-$('#up').click(() => {
-  console.log("up arrow clicked");
-});
-$('#dn').click(() => {
-  console.log("down arrow clicked");
-});
-$('#red').click(() => {
-  console.log("red button clicked");
-});
-$('#blue').click(() => {
-  console.log("blue button clicked");
-});
 
 var gliderVelocity = 100;
 var mainState = {
@@ -75,7 +60,6 @@ var mainState = {
 
         // Set the physics system
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
         sky = game.add.tileSprite(0,0,5480,548,'sky');
 
         //Needed later for controls
@@ -154,23 +138,28 @@ var mainState = {
         A.onUp.add(this.stopShift, this);
 
         // Touchscreen control events
-        upArrow.click(() => {   // SAME EFFECT AS W KEY
+
+        upArrow.mouseup(() => {
           this.lift();
         });
-        redEnergy.mousedown(() => { // SAME EFFECT AS A KEY
-          this.redShift();
-        });
-        dnArrow.click(() => {   // SAME EFFECT AS S KEY
+
+        dnArrow.mouseup(() => {
           this.dive();
         });
-        bluEnergy.mousedown(() => { // SAME EFFECT AS D KEY
-          this.blueShift();
-        });
 
-        bluEnergy.mouseup(() => {
-          this.stopShift();
+        //pointer.onDown.add(this.testOutput, this);
+
+        redEnergy.mousedown(() => {
+          this.redShift();
         });
         redEnergy.mouseup(() => {
+          this.stopShift();
+        });
+
+        bluEnergy.mousedown(() => {
+          this.blueShift();
+        });
+        bluEnergy.mouseup(() => {
           this.stopShift();
         });
 
@@ -191,19 +180,15 @@ var mainState = {
         //Transient logic switches
         this.scoreIncreased = false;
         this.speedIncreased = false;
+
+        // Resets ship velocity on game initialization
+        this.resetMovement();
     },
 
     update: function() {
         // This function is called 60 times per second
         resizer();
         viewportCheck();
-        // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        // this.game.scale.setShowAll();
-        // window.addEventListener(
-        //   'resize', function () {
-        //     this.game.scale.refresh();
-        //   });
-        //     this.game.scale.refresh();
 
         //Keeps the UI data refreshed and logs top score
         this.ui = ("Energy: " + this.energy + "\n" + "Score: " + this.score);
@@ -276,8 +261,7 @@ if (this.energy < 5) {
 // Increases speed multiplier and ship agility the higher the score gets.
 if (this.score !== 0 && this.score % 50 === 0) {
   if (this.speedIncreased === false) {
-  this.speedMultiplier += 5;
-  console.log('accelerating');
+  this.speedMultiplier += 2;
   this.speedIncreased = true;
 }
 else {
@@ -285,8 +269,6 @@ else {
 }
 }
 // TODO: Work on Main game logic ^^^
-
-
     },
 
     increaseScore: function() {
@@ -347,35 +329,41 @@ spawnEnergyHub: function() {
 // shipAgility: 50,
 lift: function() {
     // Add a vertical velocity to the bird
-    glider.body.velocity.y -= this.shipAgility;
+    glider.body.velocity.y      -= this.shipAgility;
     metrostrobe.body.velocity.y -= this.shipAgility;
 },
 
 dive: function() {
     // Add a vertical velocity to the bird
-    glider.body.velocity.y += this.shipAgility;
+    glider.body.velocity.y      += this.shipAgility;
     metrostrobe.body.velocity.y += this.shipAgility;
 },
 
+resetMovement: function() {
+  // Resets initial glider velocity to prevent
+  // a stacking effect from occuring where a slight tap would launch the ship into the roof.
+  glider.body.velocity.y      = 0
+  metrostrobe.body.velocity.y = 0
+},
+
+testOutput: function() {
+  console.log("test");
+},
+
 redShift: function() {
-    // Add a vertical velocity to the bird
-    gliderPhase = 'red';
+    gliderPhase     = 'red';
     currentPhaseImg = 'redPhase';
-    console.log(gliderPhase + ' Shifted');
-    glider.frame = 1;
+    glider.frame    = 1;
 },
 
 blueShift: function() {
-    // Add a vertical velocity to the bird
-    gliderPhase = 'blue';
+    gliderPhase     = 'blue';
     currentPhaseImg = 'bluePhase';
-    console.log(gliderPhase + ' Shifted');
-    glider.frame = 0;
+    glider.frame    = 0;
 },
 
 stopShift: function() {
-    // Add a vertical velocity to the bird
-    gliderPhase = 'null';
+    gliderPhase  = 'null';
     glider.frame = 2;
 },
 
@@ -383,11 +371,13 @@ stopShift: function() {
 
 // Restart the game
 restartGame: function() {
+
     // Start the 'main' state, which restarts the game
-
+    this.shipAgility = 0;
+    this.resetMovement();
     game.state.start('main');
-
 },
+
 };
 
 // Initialize Phaser
